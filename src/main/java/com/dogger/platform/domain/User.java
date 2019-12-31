@@ -1,5 +1,7 @@
 package com.dogger.platform.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.util.ArrayList;
@@ -10,16 +12,40 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String fullName;
+    @Column(unique = true, nullable = false)
+    private String username;
+    @Column(nullable = false)
+    private String password;
+    @Column(unique = true, nullable = false)
     private String email;
+    private String role;
+
+    public User(String username, String password, String email, String role) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+    @JsonIgnore
     private List<Post> postList = new ArrayList<>();
-
-    public User(String fullName, String email) {
-        this.fullName = fullName;
-        this.email = email;
-    }
 
     User() {
         super();
@@ -41,12 +67,12 @@ public class User {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

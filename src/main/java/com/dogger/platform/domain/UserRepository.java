@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    @Query("select u from User u where u.fullName = ?1")
-    List<User> findByFullName(String fullName);
+    @Query("select u from User u where u.username = ?1")
+    User findByUsername(String username);
 
 }
