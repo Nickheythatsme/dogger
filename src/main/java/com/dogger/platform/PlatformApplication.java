@@ -10,6 +10,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+
 @SpringBootApplication
 public class PlatformApplication {
     @Autowired
@@ -26,11 +30,11 @@ public class PlatformApplication {
 		return args -> {
 		    User user1 = new User("nick", "nick@plusqa.com");
 			User user2 = new User("macaroni", "macaroni@plusqa.com");
-			userRepository.save(user1);
-			userRepository.save(user2);
-			postRepository.save(
-					new Post(user1, "this is a title", "this is content!")
-			);
+			userRepository.saveAll(Arrays.asList(user1, user2));
+			Post post1 = new Post(user1, "this is a title", "this is content!");
+			Post post2 = new Post(user2, "Cats: Why they're so cool!", "this is content!");
+			postRepository.saveAll(Arrays.asList(post1, post2));
+			userRepository.deleteById(1L);
 		};
 	}
 }

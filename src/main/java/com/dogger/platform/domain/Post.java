@@ -8,15 +8,17 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "poster")
-    private User poster;
+    @JoinColumn(name = "author")
+    private User author;
     @Column(length = 255)
     private String title;
     @Column(length = 10000)
     private String content;
 
-    public Post(User poster, String title, String content) {
-        this.poster = poster;
+    public Post() { }
+
+    public Post(User author, String title, String content) {
+        this.author = author;
         this.title = title;
         this.content = content;
     }
@@ -45,12 +47,12 @@ public class Post {
         this.id = id;
     }
 
-    public User getPoster() {
-        return poster;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setPoster(User poster) {
-        this.poster = poster;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
 }

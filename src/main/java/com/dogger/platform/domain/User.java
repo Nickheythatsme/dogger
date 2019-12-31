@@ -1,12 +1,8 @@
 package com.dogger.platform.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,8 +13,8 @@ public class User {
     private String fullName;
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "poster")
-    private List<Post> postList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+    private List<Post> postList = new ArrayList<>();
 
     public User(String fullName, String email) {
         this.fullName = fullName;
